@@ -16,7 +16,8 @@
 #' @return Returns a table of survey weighted frequencies with net categories if specified
 #'
 #' @import dplyr
-#' @importFrom survey survey_mean
+#' @import survey
+#' @importFrom srvyr survey_mean
 #'
 #' @export
 #'
