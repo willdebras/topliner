@@ -7,11 +7,12 @@ Maintainer: Will Bonnell <Bonne-William@norc.org>
 Description: This package includes several functions that quickly output weighted tablatures of survey data.
 Imports: 
   survey,
-  dplyr
+  dplyr,
+  srvyr
 Suggests:
   knitr,
-  tidyverse,
-  survyr
+  tidyverse
 License: Who needs licenses?
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1.9000
