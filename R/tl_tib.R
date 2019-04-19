@@ -31,7 +31,7 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
     filter(name==vari)
 
 
-  tib <- nk %>%
+  tib <- df %>%
     group_by_at(vari) %>%
     summarise(perc = survey_mean()) %>%
     select(vari, perc) %>%
