@@ -11,13 +11,13 @@
 #'
 #'
 #' @examples
-bat <- function(var) {
+bat <- function(var, data) {
 
   labels_temp <- labels %>%
     filter(name == var) %>%
     select(battery_labels)
 
-  tib_temp <- nk %>%
+  tib_temp <- data %>%
     group_by_at(var) %>%
     summarise(perc = survey_mean(na.rm = TRUE)) %>%
     select(c(1, 2)) %>%
