@@ -1,16 +1,17 @@
 #' tl_bat
 #'
-#' @param vars
-#' @param data
-#' @param default
-#' @param res
-#' @param top
-#' @param bot
+#' @param vars Vector of variables from survey data object
+#' @param data Survey data object
+#' @param default Creates default net categories. Defaults to TRUE
+#' @param res Number of residual categories, i.e. "skipped," "refused," "Don't know." Defaults to 3.
+#' @param top Custom top net.
+#' @param bot Custom bot net.
 #'
-#' @return
+#' @return Returns a tibble of weighted frequencies
 #' @export
+#' @import dplyr
 #'
-#' @examples
+#' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2 )
 
 tl_bat <- function(vars, data, default = TRUE, res = 3, top = 0, bot = 0) {
 
