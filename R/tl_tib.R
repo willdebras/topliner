@@ -33,7 +33,7 @@ tl_tib <- function(vari, data, default = TRUE, top = 0, bot = 0, na = FALSE, web
 
   tib <- data %>%
     group_by_at(vari) %>%
-    summarise(perc = survey_mean()) %>%
+    summarise(perc = survey_mean(na.rm = TRUE)) %>%
     select(vari, perc) %>%
     spread(vari, perc)
 
