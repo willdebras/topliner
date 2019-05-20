@@ -119,7 +119,7 @@ tl_bat <- function(vars, data, default = TRUE, res = 3, top = 0, bot = 0) {
 
   }
 
-  tib[-1] <- lapply(tib[-1], apnorc_round)
+  tib[-1] <- lapply(tib[-1], tl_round)
 
   return(tib)
 
