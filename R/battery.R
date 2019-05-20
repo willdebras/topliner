@@ -13,7 +13,7 @@
 #' @examples
 bat <- function(var, data) {
 
-  labels_temp <- labels %>%
+  labels_temp <- data_labels %>%
     filter(name == var) %>%
     select(battery_labels)
 
