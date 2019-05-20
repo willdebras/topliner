@@ -17,6 +17,7 @@
 #'
 #' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2 )
 
+
 tl_bat <- function(vars, data, default = TRUE, res = 3, top = 0, bot = 0) {
 
   tib.list <- lapply(vars, bat, data)

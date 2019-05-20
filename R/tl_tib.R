@@ -25,13 +25,13 @@
 #' tl_tib("q3", data = df, default = TRUE)
 #' tl_tib("q2", data = df, top = 3, bot = 2, na = TRUE)
 #'
-tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE, web = FALSE) {
+tl_tib <- function(vari, data, default = TRUE, top = 0, bot = 0, na = FALSE, web = FALSE) {
 
   label <- data_labels %>%
     filter(name==vari)
 
 
-  tib <- df %>%
+  tib <- data %>%
     group_by_at(vari) %>%
     summarise(perc = survey_mean()) %>%
     select(vari, perc) %>%
