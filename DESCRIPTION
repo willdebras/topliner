@@ -8,7 +8,8 @@ Description: This package includes several functions that quickly output weighte
 Imports: 
   survey,
   dplyr,
-  srvyr
+  srvyr,
+  gt
 Suggests:
   knitr,
   tidyverse
