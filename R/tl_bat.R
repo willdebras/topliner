@@ -14,6 +14,7 @@
 #' @import dplyr
 #' @import survey
 #' @importFrom srvyr survey_mean
+#' @import gt
 #'
 #' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2 )
 
@@ -121,7 +122,21 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
 
   tib[-1] <- lapply(tib[-1], tl_round)
 
-  return(tib)
+  colnames(tib)[1] <- battery_fill
+
+  nsize_temp <- nsize %>%
+    filter(rowname == vars[1])
+
+
+  gtib <- tib %>%
+    gt() %>%
+    tab_header(
+      title = nsize_temp$rowname
+    ) %>%
+    cols_align(align = "center") %>%
+    tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+    tab_source_note(source_note = "  ")
+  return(gtib)
 
 
 }

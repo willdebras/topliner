@@ -18,6 +18,7 @@
 #' @import dplyr
 #' @import survey
 #' @importFrom srvyr survey_mean
+#' @import gt
 #'
 #' @export
 #'
@@ -167,8 +168,20 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         }
       }
 
-      print(label$label)
-      print(tib)
+      nsize_temp <- nsize %>%
+        filter(rowname == vari)
+
+      gtib <- tib %>%
+        gt() %>%
+        tab_header(
+          title = label$label
+        ) %>%
+        cols_align(align = "center") %>%
+        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = "  ") %>%
+        tab_source_note(source_note = "  ")
+
+      return(gtib)
 
 
     }
@@ -303,9 +316,20 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         }
       }
 
-      print(label$label)
-      print(tib)
+      nsize_temp <- nsize %>%
+        filter(rowname == vari)
 
+      gtib <- tib %>%
+        gt() %>%
+        tab_header(
+          title = label$label
+        ) %>%
+        cols_align(align = "center") %>%
+        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = "  ") %>%
+        tab_source_note(source_note = "  ")
+
+      return(gtib)
     }
 
   }
@@ -460,8 +484,20 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         }
       }
 
-      print(label$label)
-      print(tib)
+      nsize_temp <- nsize %>%
+        filter(rowname == vari)
+
+      gtib <- tib %>%
+        gt() %>%
+        tab_header(
+          title = label$label
+        ) %>%
+        cols_align(align = "center") %>%
+        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = "  ") %>%
+        tab_source_note(source_note = "  ")
+
+      return(gtib)
 
 
     }
@@ -613,8 +649,20 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         }
       }
 
-      print(label$label)
-      print(tib)
+      nsize_temp <- nsize %>%
+        filter(rowname == vari)
+
+      gtib <- tib %>%
+        gt() %>%
+        tab_header(
+          title = label$label
+        ) %>%
+        cols_align(align = "center") %>%
+        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = "  ") %>%
+        tab_source_note(source_note = "  ")
+
+      return(gtib)
 
     }
 
