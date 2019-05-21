@@ -489,13 +489,15 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
 
       gtib <- tib %>%
         gt() %>%
-        tab_header(
-          title = label$label
-        ) %>%
-        cols_align(align = "center") %>%
+        #tab_header(
+        #  title = label$label
+        #) %>%
+        cols_align(align = "left") %>%
         tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
         tab_source_note(source_note = "  ") %>%
         tab_source_note(source_note = "  ")
+
+      cat(paste("####", label$label, sep = " "))
 
       return(gtib)
 
@@ -654,13 +656,16 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
 
       gtib <- tib %>%
         gt() %>%
-        tab_header(
-          title = label$label
-        ) %>%
-        cols_align(align = "center") %>%
+        #tab_header(
+        #  title = label$label
+        #) %>%
+        cols_align(align = "left") %>%
         tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
         tab_source_note(source_note = "  ") %>%
         tab_source_note(source_note = "  ")
+
+      cat(paste(label$label))
+      #cat(label$label)
 
       return(gtib)
 
