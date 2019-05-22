@@ -9,7 +9,8 @@ Imports:
   survey,
   dplyr,
   srvyr,
-  gt
+  gt,
+  stringr
 Suggests:
   knitr,
   tidyverse
