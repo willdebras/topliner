@@ -136,7 +136,15 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
     cols_align(align = "center") %>%
     tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
     tab_source_note(source_note = "  ")
+
+  label <- data_labels %>%
+    filter(name==vars[1])
+
+  cat(paste(label$question_labels))
+
   return(gtib)
 
 
 }
+
+
