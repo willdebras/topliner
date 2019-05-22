@@ -127,20 +127,33 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
   nsize_temp <- nsize %>%
     filter(rowname == vars[1])
 
+tib_loc <- grep("NET", colnames(tib))
+
 
   gtib <- tib %>%
     gt() %>%
-    tab_header(
-      title = nsize_temp$rowname
-    ) %>%
+    #tab_header(
+    #  title = NULL,
+#
+#    ) %>%
     cols_align(align = "center") %>%
     tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
-    tab_source_note(source_note = "  ")
+    tab_source_note(source_note = "  ") %>%
+    tab_style(
+      style = cells_styles(
+        text_weight = "bold"),
+      locations = cells_data(columns = as.vector(tib_loc))) %>%
+    cols_align(align = "left",
+               columns = c(1))
 
   label <- data_labels %>%
     filter(name==vars[1])
 
-  cat(paste(label$question_labels))
+  cat("<br />")
+  cat("<br />")
+  cat(paste(label$question_labels, "  "))
+  cat("<br />")
+  cat("<br />")
 
   return(gtib)
 

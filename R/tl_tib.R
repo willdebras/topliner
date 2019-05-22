@@ -19,6 +19,7 @@
 #' @import survey
 #' @importFrom srvyr survey_mean
 #' @import gt
+#' @importFrom stringr str_detect
 #'
 #' @export
 #'
@@ -487,17 +488,31 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
       nsize_temp <- nsize %>%
         filter(rowname == vari)
 
+      tib_loc <- tib %>%
+        mutate(row_num = seq.int(nrow(tib))) %>%
+        filter(str_detect(key, "NET"))
+
       gtib <- tib %>%
         gt() %>%
         #tab_header(
         #  title = label$label
         #) %>%
-        cols_align(align = "left") %>%
+        cols_align(align = "center") %>%
         tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
         tab_source_note(source_note = "  ") %>%
-        tab_source_note(source_note = "  ")
+        tab_source_note(source_note = "  ") %>%
+        tab_style(
+          style = cells_styles(
+            text_weight = "bold"),
+          locations = cells_data(rows = tib_loc$row_num)) %>%
+        cols_align(align = "left",
+                   columns = c(1))
 
-      cat(paste("####", label$label, sep = " "))
+      cat("<br />")
+      cat("<br />")
+      cat(paste(label$label))
+      cat("<br />")
+      cat("<br />")
 
       return(gtib)
 
@@ -654,18 +669,31 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
       nsize_temp <- nsize %>%
         filter(rowname == vari)
 
+      tib_loc <- tib %>%
+        mutate(row_num = seq.int(nrow(tib))) %>%
+        filter(str_detect(key, "NET"))
+
       gtib <- tib %>%
         gt() %>%
         #tab_header(
         #  title = label$label
         #) %>%
-        cols_align(align = "left") %>%
+        cols_align(align = "center") %>%
         tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
         tab_source_note(source_note = "  ") %>%
-        tab_source_note(source_note = "  ")
+        tab_source_note(source_note = "  ") %>%
+        tab_style(
+          style = cells_styles(
+            text_weight = "bold"),
+          locations = cells_data(rows = tib_loc$row_num)) %>%
+        cols_align(align = "left",
+                   columns = c(1))
 
+      cat("<br />")
+      cat("<br />")
       cat(paste(label$label))
-      #cat(label$label)
+      cat("<br />")
+      cat("<br />")
 
       return(gtib)
 
