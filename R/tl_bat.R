@@ -36,27 +36,27 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
     if ((ncol(tib)-res-1)==5) {
 
       tib <- tib %>%
-        mutate(`TOP NET` = apply(tib[,c(2:3)], 1, sum)) %>%
-        mutate(`BOT NET` = apply(tib[,c(5:6)], 1, sum)) %>%
-        select(1, `TOP NET`, 2:4, `BOT NET`, everything())
+        mutate(`Top NET` = apply(tib[,c(2:3)], 1, sum)) %>%
+        mutate(`Bot NET` = apply(tib[,c(5:6)], 1, sum)) %>%
+        select(1, `Top NET`, 2:4, `Bot NET`, everything())
 
     }
 
     else if ((ncol(tib)-res-1)==4) {
 
       tib <- tib %>%
-        mutate(`TOP NET` = apply(tib[,c(2:3)], 1, sum)) %>%
-        mutate(`BOT NET` = apply(tib[,c(4:5)], 1, sum)) %>%
-        select(1, `TOP NET`, 2:3, `BOT NET`, everything())
+        mutate(`Top NET` = apply(tib[,c(2:3)], 1, sum)) %>%
+        mutate(`Bot NET` = apply(tib[,c(4:5)], 1, sum)) %>%
+        select(1, `Top NET`, 2:3, `Bot NET`, everything())
 
     }
 
     else if ((ncol(tib)-res-1)==7) {
 
       tib <- tib %>%
-        mutate(`TOP NET` = apply(tib[,c(2:4)], 1, sum)) %>%
-        mutate(`BOT NET` = apply(tib[,c(6:8)], 1, sum)) %>%
-        select(1, `TOP NET`, 2:4, `BOT NET`, everything())
+        mutate(`Top NET` = apply(tib[,c(2:4)], 1, sum)) %>%
+        mutate(`Bot NET` = apply(tib[,c(6:8)], 1, sum)) %>%
+        select(1, `Top NET`, 2:4, `Bot NET`, everything())
 
 
     }
@@ -71,14 +71,14 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
   else if (top>0&bot>0) {
 
     tib <- tib %>%
-      mutate(`TOP NET` = apply(tib[,c(2:(1+top))], 1, sum)) %>%
-      select(1, `TOP NET`, everything())
+      mutate(`Top NET` = apply(tib[,c(2:(1+top))], 1, sum)) %>%
+      select(1, `Top NET`, everything())
 
     first <- ncol(tib)-bot-res+1
     last <- ncol(tib)-res
 
     tib <- tib %>%
-      mutate(`BOT NET` = apply(tib[,c(first:last)], 1, sum))
+      mutate(`Bot NET` = apply(tib[,c(first:last)], 1, sum))
     tib <- tib %>%
       select(1:(first-1), ncol(tib), first:(ncol(tib)-1))
 
@@ -88,8 +88,8 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
 
   else if (top>0) {
     tib <- tib %>%
-      mutate(`TOP NET` = apply(tib[,c(2:(1+top))], 1, sum)) %>%
-      select(1, `TOP NET`, everything())
+      mutate(`Top NET` = apply(tib[,c(2:(1+top))], 1, sum)) %>%
+      select(1, `Top NET`, everything())
 
   }
 
@@ -99,7 +99,7 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
     last <- ncol(tib)-res
 
     tib <- tib %>%
-      mutate(`BOT NET` = apply(tib[,c(first:last)], 1, sum))
+      mutate(`Bot NET` = apply(tib[,c(first:last)], 1, sum))
     tib <- tib %>%
       select(1:(first-1), ncol(tib), first:(ncol(tib)-1))
 
@@ -122,7 +122,7 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
   }
 
   tib[-1] <- lapply(tib[-1], tl_round)
-  colnames(tib) <- str_to_sentence(colnames(tib))
+  colnames(tib) <- ifelse(!str_detect(colnames(tib), "NET"), str_to_sentence(colnames(tib)), colnames(tib))
   colnames(tib)[1] <- battery_fill
 
 
