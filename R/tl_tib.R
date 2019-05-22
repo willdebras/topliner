@@ -19,7 +19,7 @@
 #' @import survey
 #' @importFrom srvyr survey_mean
 #' @import gt
-#' @importFrom stringr str_detect
+#' @importFrom stringr str_detect str_to_sentence
 #'
 #' @export
 #'
@@ -498,7 +498,7 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         #  title = label$label
         #) %>%
         cols_align(align = "center") %>%
-        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
         tab_source_note(source_note = "  ") %>%
         tab_source_note(source_note = "  ") %>%
         tab_style(
@@ -506,7 +506,7 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
             text_weight = "bold"),
           locations = cells_data(rows = tib_loc$row_num)) %>%
         cols_align(align = "left",
-                   columns = c(1))
+                   columns = c(1)) %>%
 
       cat("<br />")
       cat("<br />")
@@ -666,6 +666,10 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         }
       }
 
+
+      tib <- tib %>%
+        mutate(key = ifelse(str_detect(key, "REF")|str_detect(key, "SKIP")|str_detect(key, "DON"), str_to_sentence(key), key))
+
       nsize_temp <- nsize %>%
         filter(rowname == vari)
 
@@ -679,7 +683,7 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         #  title = label$label
         #) %>%
         cols_align(align = "center") %>%
-        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
         tab_source_note(source_note = "  ") %>%
         tab_source_note(source_note = "  ") %>%
         tab_style(

@@ -15,6 +15,7 @@
 #' @import survey
 #' @importFrom srvyr survey_mean
 #' @import gt
+#' @importFrom stringr str_to_sentence
 #'
 #' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2 )
 
@@ -121,8 +122,9 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
   }
 
   tib[-1] <- lapply(tib[-1], tl_round)
-
+  colnames(tib) <- str_to_sentence(colnames(tib))
   colnames(tib)[1] <- battery_fill
+
 
   nsize_temp <- nsize %>%
     filter(rowname == vars[1])
@@ -137,7 +139,7 @@ tib_loc <- grep("NET", colnames(tib))
 #
 #    ) %>%
     cols_align(align = "center") %>%
-    tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+    tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
     tab_source_note(source_note = "  ") %>%
     tab_style(
       style = cells_styles(
