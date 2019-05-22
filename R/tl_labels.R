@@ -5,10 +5,10 @@
 #' @param data Dataframe from which you want to draw labels
 #' @param spss Whether the dataset is from SPSS or not. Defaults to FALSE.
 #'
-#' @return Returns a dataframe of variable names and associated labels assigned to attributes
+#' @return Returns a data object of variable names and associated labels to the environment for other functions to use
 #' @export
 #' @importFrom tibble tibble
-#' @examples labels <- tl_labels(omnibus0319, SPSS = TRUE)
+#' @examples tl_labels(omnibus0319, SPSS = TRUE)
 #'
 #'
 tl_labels <- function(data, spss = FALSE) {

@@ -12,13 +12,13 @@ tl_labels(data, spss = FALSE)
 \item{spss}{Whether the dataset is from SPSS or not. Defaults to FALSE.}
 }
 \value{
-Returns a dataframe of variable names and associated labels assigned to attributes
+Returns a data object of variable names and associated labels to the environment for other functions to use
 }
 \description{
 Create a dataframe of variables and labels to print in tables
 }
 \examples{
-labels <- tl_labels(omnibus0319, SPSS = TRUE)
+tl_labels(omnibus0319, SPSS = TRUE)
 
 
 }
