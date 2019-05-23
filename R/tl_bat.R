@@ -160,6 +160,14 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
   cat("<br />")
   cat("<br />")
+
+  if (!is.na(label$skip_logic)) {
+    cat("<i>")
+    cat(paste(label$skip_logic))
+    cat("</i>")
+    cat("<br />")
+  }
+
   cat("<b>")
   cat(paste(str_to_upper(q_name), label$question_labels, sep = ". "))
   cat("</b>")

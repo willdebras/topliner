@@ -698,6 +698,14 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FA
 
       cat("<br />")
       cat("<br />")
+
+      if (!is.na(label$skip_logic)) {
+        cat("<i>")
+        cat(paste(label$skip_logic))
+        cat("</i>")
+        cat("<br />")
+      }
+
       cat("<b>")
       cat(paste(str_to_upper(label$name), label$label, sep = ". "))
       cat("</b>")

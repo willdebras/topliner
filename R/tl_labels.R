@@ -34,7 +34,15 @@ tl_labels <- function(data, spss = FALSE) {
     cbind(battery_labels) %>%
     cbind(question_labels)
 
+  labels$skip_logic <- NA
+
   data_labels <<- labels
   #assign("labels", labels, envir = .GlobalEnv)
+
+  data_labels$label <- vapply(data_labels$label, paste, collapse = ", ", character(1L))
+
+  temp <<- tempfile("data_labels", fileext = ".csv")
+  write.csv(data_labels, file = temp, row.names=FALSE)
+  shell.exec(temp)
 
 }
