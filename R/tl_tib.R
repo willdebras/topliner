@@ -19,7 +19,7 @@
 #' @import survey
 #' @importFrom srvyr survey_mean
 #' @import gt
-#' @importFrom stringr str_detect str_to_sentence
+#' @importFrom stringr str_detect str_to_sentence str_to_upper
 #'
 #' @export
 #'
@@ -27,7 +27,7 @@
 #' tl_tib("q3", data = df, default = TRUE)
 #' tl_tib("q2", data = df, top = 3, bot = 2, na = TRUE)
 #'
-tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE, web = FALSE) {
+tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FALSE, web = FALSE) {
 
   label <- data_labels %>%
     filter(name==vari)
@@ -666,7 +666,6 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
         }
       }
 
-
       tib <- tib %>%
         mutate(key = ifelse(str_detect(key, "REF")|str_detect(key, "SKIP")|str_detect(key, "DON"), str_to_sentence(key), key))
 
@@ -676,6 +675,8 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
       tib_loc <- tib %>%
         mutate(row_num = seq.int(nrow(tib))) %>%
         filter(str_detect(key, "NET"))
+
+      colnames(tib)[1] <- " "
 
       gtib <- tib %>%
         gt() %>%
@@ -691,11 +692,14 @@ tl_tib <- function(vari, data = df, default = TRUE, top = 0, bot = 0, na = FALSE
             text_weight = "bold"),
           locations = cells_data(rows = tib_loc$row_num)) %>%
         cols_align(align = "left",
-                   columns = c(1))
+                   columns = c(1)) %>%
+        cols_label(Percentage = html(paste(battery_fill)))
 
       cat("<br />")
       cat("<br />")
-      cat(paste(label$label))
+      cat("<b>")
+      cat(paste(str_to_upper(label$name), label$label, sep = ". "))
+      cat("</b>")
       cat("<br />")
       cat("<br />")
 

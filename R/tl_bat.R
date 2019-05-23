@@ -20,7 +20,7 @@
 #' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2 )
 
 
-tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
+tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0) {
 
   tib.list <- lapply(vars, bat, data)
   tib <- do.call(rbind, tib.list) %>%
@@ -123,7 +123,7 @@ tl_bat <- function(vars, data = df, default = TRUE, res = 3, top = 0, bot = 0) {
 
   tib[-1] <- lapply(tib[-1], tl_round)
   colnames(tib) <- ifelse(!str_detect(colnames(tib), "NET"), str_to_sentence(colnames(tib)), colnames(tib))
-  colnames(tib)[1] <- battery_fill
+  colnames(tib)[1] <- "Percentage"
 
 
   nsize_temp <- nsize %>%
@@ -134,26 +134,27 @@ tib_loc <- grep("NET", colnames(tib))
 
   gtib <- tib %>%
     gt() %>%
-    #tab_header(
-    #  title = NULL,
-#
-#    ) %>%
     cols_align(align = "center") %>%
     tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
     tab_source_note(source_note = "  ") %>%
     tab_style(
-      style = cells_styles(
-        text_weight = "bold"),
+      style = cells_styles(text_weight = "bold"),
       locations = cells_data(columns = as.vector(tib_loc))) %>%
+    tab_style(
+      style = cells_styles(text_weight = "bold"),
+      locations = cells_column_labels(columns = as.vector(tib_loc))) %>%
     cols_align(align = "left",
-               columns = c(1))
+               columns = c(1)) %>%
+    cols_label(Percentage = html(paste(battery_fill)))
 
   label <- data_labels %>%
     filter(name==vars[1])
 
   cat("<br />")
   cat("<br />")
+  cat("<b>")
   cat(paste(label$question_labels, "  "))
+  cat("</b>")
   cat("<br />")
   cat("<br />")
 
