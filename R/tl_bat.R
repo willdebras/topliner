@@ -17,7 +17,7 @@
 #' @import gt
 #' @importFrom stringr str_to_sentence
 #'
-#' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2 )
+#' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2)
 
 
 tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0) {

@@ -4,7 +4,7 @@
 \alias{tl_tib}
 \title{tl_tib}
 \usage{
-tl_tib(vari, data = df, default = TRUE, top = 0, bot = 0,
+tl_tib(vari, data = tl_df, default = TRUE, top = 0, bot = 0,
   na = FALSE, web = FALSE)
 }
 \arguments{
