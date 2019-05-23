@@ -10,7 +10,8 @@ Imports:
   dplyr,
   srvyr,
   gt,
-  stringr
+  stringr,
+  tibble
 Suggests:
   knitr,
   tidyverse

@@ -13,6 +13,7 @@
 #'
 #' @importFrom srvyr as_survey_design
 #' @import dplyr
+#' @importFrom tibble rownames_to_column
 #'
 #' @examples tl_setup(omnibusdata, caseids = "su_id", weights = "weight_ap", dates = "05/14-17/2019", APNORC = TRUE)
 tl_setup <- function(data, caseids, weights, dates, APNORC = TRUE) {
