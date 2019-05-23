@@ -12,7 +12,8 @@ Imports:
   gt,
   stringr,
   tibble,
-  tidyr
+  tidyr,
+  stringi
 Suggests:
   knitr,
   tidyverse

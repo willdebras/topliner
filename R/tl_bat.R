@@ -16,7 +16,8 @@
 #' @importFrom srvyr survey_mean
 #' @import gt
 #' @import tidyr
-#' @importFrom stringr str_to_sentence
+#' @importFrom stringr str_to_sentence str_to_upper
+#' @importFrom stringi stri_extract_all_coll stri_sub
 #'
 #' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2)
 
@@ -130,7 +131,13 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   nsize_temp <- nsize %>%
     filter(rowname == vars[1])
 
-tib_loc <- grep("NET", colnames(tib))
+  tib_loc <- grep("NET", colnames(tib))
+
+  sub_first <- stri_sub(vars[2], 1, 1:nchar(vars[2]))
+
+  sstr <- na.omit(stri_extract_all_coll(vars[1], sub_first, simplify=TRUE))
+
+  q_name <- sstr[which.max(nchar(sstr))]
 
 
   gtib <- tib %>%
@@ -154,7 +161,7 @@ tib_loc <- grep("NET", colnames(tib))
   cat("<br />")
   cat("<br />")
   cat("<b>")
-  cat(paste(label$question_labels, "  "))
+  cat(paste(str_to_upper(q_name), label$question_labels, sep = ". "))
   cat("</b>")
   cat("<br />")
   cat("<br />")
