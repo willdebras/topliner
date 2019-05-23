@@ -11,7 +11,8 @@ Imports:
   srvyr,
   gt,
   stringr,
-  tibble
+  tibble,
+  tidyr
 Suggests:
   knitr,
   tidyverse

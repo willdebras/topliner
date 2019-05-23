@@ -15,6 +15,7 @@
 #' @import survey
 #' @importFrom srvyr survey_mean
 #' @import gt
+#' @import tidyr
 #' @importFrom stringr str_to_sentence
 #'
 #' @examples tl_bat(vars = c("q1", "q2", "q3"), data = df, top = 3, bot = 2)
