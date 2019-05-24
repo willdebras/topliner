@@ -170,18 +170,50 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FA
         }
       }
 
+      tib <- tib %>%
+        mutate(key = ifelse(str_detect(key, "REF")|str_detect(key, "SKIP")|str_detect(key, "DON"), str_to_sentence(key), key))
+
       nsize_temp <- nsize %>%
         filter(rowname == vari)
 
+      tib_loc <- tib %>%
+        mutate(row_num = seq.int(nrow(tib))) %>%
+        filter(str_detect(key, "NET"))
+
+      colnames(tib)[1] <- " "
+
       gtib <- tib %>%
         gt() %>%
-        tab_header(
-          title = label$label
-        ) %>%
+        #tab_header(
+        #  title = label$label
+        #) %>%
         cols_align(align = "center") %>%
-        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
         tab_source_note(source_note = "  ") %>%
-        tab_source_note(source_note = "  ")
+        tab_source_note(source_note = "  ") %>%
+        tab_style(
+          style = cells_styles(
+            text_weight = "bold"),
+          locations = cells_data(rows = tib_loc$row_num)) %>%
+        cols_align(align = "left",
+                   columns = c(1)) %>%
+        cols_label(Percentage = html(paste(battery_fill)))
+
+      cat("<br />")
+      cat("<br />")
+
+      if (!is.na(label$skip_logic)) {
+        cat("<i>")
+        cat(paste(label$skip_logic))
+        cat("</i>")
+        cat("<br />")
+      }
+
+      cat("<b>")
+      cat(paste(str_to_upper(label$name), label$label, sep = ". "))
+      cat("</b>")
+      cat("<br />")
+      cat("<br />")
 
       return(gtib)
 
@@ -318,18 +350,50 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FA
         }
       }
 
+      tib <- tib %>%
+        mutate(key = ifelse(str_detect(key, "REF")|str_detect(key, "SKIP")|str_detect(key, "DON"), str_to_sentence(key), key))
+
       nsize_temp <- nsize %>%
         filter(rowname == vari)
 
+      tib_loc <- tib %>%
+        mutate(row_num = seq.int(nrow(tib))) %>%
+        filter(str_detect(key, "NET"))
+
+      colnames(tib)[1] <- " "
+
       gtib <- tib %>%
         gt() %>%
-        tab_header(
-          title = label$label
-        ) %>%
+        #tab_header(
+        #  title = label$label
+        #) %>%
         cols_align(align = "center") %>%
-        tab_source_note(source_note = paste("N = ", nsize_temp$ncount, sep = "")) %>%
+        tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
         tab_source_note(source_note = "  ") %>%
-        tab_source_note(source_note = "  ")
+        tab_source_note(source_note = "  ") %>%
+        tab_style(
+          style = cells_styles(
+            text_weight = "bold"),
+          locations = cells_data(rows = tib_loc$row_num)) %>%
+        cols_align(align = "left",
+                   columns = c(1)) %>%
+        cols_label(Percentage = html(paste(battery_fill)))
+
+      cat("<br />")
+      cat("<br />")
+
+      if (!is.na(label$skip_logic)) {
+        cat("<i>")
+        cat(paste(label$skip_logic))
+        cat("</i>")
+        cat("<br />")
+      }
+
+      cat("<b>")
+      cat(paste(str_to_upper(label$name), label$label, sep = ". "))
+      cat("</b>")
+      cat("<br />")
+      cat("<br />")
 
       return(gtib)
     }
@@ -486,12 +550,17 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FA
         }
       }
 
+      tib <- tib %>%
+        mutate(key = ifelse(str_detect(key, "REF")|str_detect(key, "SKIP")|str_detect(key, "DON"), str_to_sentence(key), key))
+
       nsize_temp <- nsize %>%
         filter(rowname == vari)
 
       tib_loc <- tib %>%
         mutate(row_num = seq.int(nrow(tib))) %>%
         filter(str_detect(key, "NET"))
+
+      colnames(tib)[1] <- " "
 
       gtib <- tib %>%
         gt() %>%
@@ -508,10 +577,21 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FA
           locations = cells_data(rows = tib_loc$row_num)) %>%
         cols_align(align = "left",
                    columns = c(1)) %>%
+        cols_label(Percentage = html(paste(battery_fill)))
 
       cat("<br />")
       cat("<br />")
-      cat(paste(label$label))
+
+      if (!is.na(label$skip_logic)) {
+        cat("<i>")
+        cat(paste(label$skip_logic))
+        cat("</i>")
+        cat("<br />")
+      }
+
+      cat("<b>")
+      cat(paste(str_to_upper(label$name), label$label, sep = ". "))
+      cat("</b>")
       cat("<br />")
       cat("<br />")
 
