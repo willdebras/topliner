@@ -4,15 +4,15 @@
 \alias{tl_trend}
 \title{tl_trend}
 \usage{
-tl_trend(vari, tl_df, trend_df, default = TRUE, res = 3, top = 0,
-  bot = 0)
+tl_trend(vari, data = tl_df, trends = trend_df, default = TRUE,
+  res = 3, top = 0, bot = 0)
 }
 \arguments{
 \item{vari}{A variable for which you want to produce trend frequencies}
 
-\item{tl_df}{A survey-object dataset}
+\item{data}{A survey-object dataset}
 
-\item{trend_df}{A list of tibbles produced by the tl_readexcel helper function}
+\item{trends}{A list of tibbles produced by the tl_readexcel helper function}
 
 \item{default}{Creates default net categories. Defaults to TRUE}
 

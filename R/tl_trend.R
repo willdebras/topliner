@@ -3,8 +3,8 @@
 #' A function for combining data that has already been tabularized with data from a survey dataset
 #'
 #' @param vari A variable for which you want to produce trend frequencies
-#' @param tl_df A survey-object dataset
-#' @param trend_df A list of tibbles produced by the tl_readexcel helper function
+#' @param data A survey-object dataset
+#' @param trends A list of tibbles produced by the tl_readexcel helper function
 #' @param default Creates default net categories. Defaults to TRUE
 #' @param res Number of residual categories, i.e. "skipped," "refused," "Don't know." Defaults to 3.
 #' @param top Custom top net.
@@ -23,17 +23,17 @@
 #' @importFrom stringr str_to_sentence str_to_upper
 #' @importFrom stringi stri_extract_all_coll stri_sub
 #' @examples
-tl_trend <- function(vari, tl_df, trend_df, default = TRUE, res = 3, top = 0, bot = 0) {
+tl_trend <- function(vari, data = tl_df, trends = trend_df, default = TRUE, res = 3, top = 0, bot = 0) {
 
 
-  solo_tib <- trend_df[var]
+  solo_tib <- trends[vari]
   plucked_tib <- pluck(solo_tib, 1)
 
-  tib <- tl_df %>%
-    group_by_at(var) %>%
+  tib <- data %>%
+    group_by_at(vari) %>%
     summarise(perc = survey_mean(na.rm = TRUE)) %>%
     select(c(1, 2)) %>%
-    spread(var, perc) %>%
+    spread(vari, perc) %>%
     mutate(APNORC = "") %>%
     select(APNORC, everything())
 
@@ -133,18 +133,51 @@ tl_trend <- function(vari, tl_df, trend_df, default = TRUE, res = 3, top = 0, bo
 
   }
 
-  tib[-1] <- lapply(tib[-1], apnorc_round)
+  tib[-1] <- lapply(tib[-1], tl_round)
 
 
   colnames(tib) <- colnames(plucked_tib)
 
   tib <- rbind(tib, plucked_tib)
 
+  tib_loc <- grep("NET", colnames(tib))
+
   nsize_temp <- nsize %>%
     filter(rowname == vari)
 
   tib[1,1] <- paste(field_dates, " ", "(N=", nsize_temp$ncount, ")", sep = "")
 
-  return(tib)
+  gtib <- tib %>%
+    gt() %>%
+    cols_align(align = "center") %>%
+    tab_style(
+      style = cells_styles(text_weight = "bold"),
+      locations = cells_data(columns = as.vector(tib_loc))) %>%
+    tab_style(
+      style = cells_styles(text_weight = "bold"),
+      locations = cells_column_labels(columns = as.vector(tib_loc))) %>%
+    cols_align(align = "left",
+               columns = c(1))
+
+  label <- data_labels %>%
+    filter(name==vari)
+
+  cat("<br />")
+  cat("<br />")
+
+  if (!is.na(label$skip_logic)) {
+    cat("<i>")
+    cat(paste(label$skip_logic))
+    cat("</i>")
+    cat("<br />")
+  }
+
+  cat("<b>")
+  cat(paste(str_to_upper(label$name), label$label, sep = ". "))
+  cat("</b>")
+  cat("<br />")
+  cat("<br />")
+
+  return(gtib)
 
 }
