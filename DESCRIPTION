@@ -14,7 +14,8 @@ Imports:
   tibble,
   tidyr,
   stringi,
-  purrr
+  purrr,
+  readxl
 Suggests:
   knitr,
   tidyverse
