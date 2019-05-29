@@ -58,7 +58,7 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
       tib <- tib %>%
         mutate(`Top NET` = apply(tib[,c(2:4)], 1, sum)) %>%
         mutate(`Bot NET` = apply(tib[,c(6:8)], 1, sum)) %>%
-        select(1, `Top NET`, 2:4, `Bot NET`, everything())
+        select(1, `TOP NET`, 2:4, 5, `BOT NET`, everything())
 
 
     }
