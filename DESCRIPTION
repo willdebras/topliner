@@ -13,7 +13,8 @@ Imports:
   stringr,
   tibble,
   tidyr,
-  stringi
+  stringi,
+  purrr
 Suggests:
   knitr,
   tidyverse

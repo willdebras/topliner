@@ -1,16 +1,27 @@
 #' tl_trend
 #'
-#' @param vari
-#' @param tl_df
-#' @param trend_df
-#' @param default
-#' @param res
-#' @param top
-#' @param bot
+#' A function for combining data that has already been tabularized with data from a survey dataset
 #'
-#' @return
+#' @param vari A variable for which you want to produce trend frequencies
+#' @param tl_df A survey-object dataset
+#' @param trend_df A list of tibbles produced by the tl_readexcel helper function
+#' @param default Creates default net categories. Defaults to TRUE
+#' @param res Number of residual categories, i.e. "skipped," "refused," "Don't know." Defaults to 3.
+#' @param top Custom top net.
+#' @param bot Custom bot net.
+#'
+#'
+#' @return Returns a tibble of read in trend data and new trend data
 #' @export
 #'
+#' @importFrom purrr pluck
+#' @import dplyr
+#' @import survey
+#' @importFrom srvyr survey_mean
+#' @import gt
+#' @import tidyr
+#' @importFrom stringr str_to_sentence str_to_upper
+#' @importFrom stringi stri_extract_all_coll stri_sub
 #' @examples
 tl_trend <- function(vari, tl_df, trend_df, default = TRUE, res = 3, top = 0, bot = 0) {
 
@@ -125,13 +136,14 @@ tl_trend <- function(vari, tl_df, trend_df, default = TRUE, res = 3, top = 0, bo
   tib[-1] <- lapply(tib[-1], apnorc_round)
 
 
-  #  nsize_temp <- nsize %>%
-  #    filter(rowname == vars[1])
-
-
   colnames(tib) <- colnames(plucked_tib)
 
   tib <- rbind(tib, plucked_tib)
+
+  nsize_temp <- nsize %>%
+    filter(rowname == vari)
+
+  tib[1,1] <- paste(field_dates, " ", "(N=", nsize_temp$ncount, ")", sep = "")
 
   return(tib)
 
