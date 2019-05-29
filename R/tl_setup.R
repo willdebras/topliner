@@ -38,4 +38,6 @@ tl_setup <- function(data, caseids, weights, dates, APNORC = TRUE) {
     rename(ncount = 2) %>%
     mutate(ncount = prettyNum(ncount, big.mark = ","))
 
+  field_dates <<- dates
+
 }
