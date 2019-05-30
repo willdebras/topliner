@@ -172,11 +172,20 @@ tl_trend <- function(vari, data = tl_df, trends = trend_df, default = TRUE, res 
     cat("<br />")
   }
 
+
   cat("<b>")
   cat(paste(str_to_upper(label$name), label$label, sep = ". "))
   cat("</b>")
   cat("<br />")
   cat("<br />")
+
+  if (!is.na(label$question_logic)) {
+    cat("<b>")
+    cat(paste(label$question_logic))
+    cat("</b>")
+    cat("<br />")
+    cat("<br />")
+  }
 
   return(gtib)
 

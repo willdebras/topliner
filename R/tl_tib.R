@@ -786,11 +786,20 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, top = 0, bot = 0, na = FA
         cat("<br />")
       }
 
+
       cat("<b>")
       cat(paste(str_to_upper(label$name), label$label, sep = ". "))
       cat("</b>")
       cat("<br />")
       cat("<br />")
+
+      if (!is.na(label$question_logic)) {
+        cat("<b>")
+        cat(paste(label$question_logic))
+        cat("</b>")
+        cat("<br />")
+        cat("<br />")
+      }
 
       return(gtib)
 

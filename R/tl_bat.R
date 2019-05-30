@@ -168,11 +168,20 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     cat("<br />")
   }
 
+
   cat("<b>")
   cat(paste(str_to_upper(q_name), label$question_labels, sep = ". "))
   cat("</b>")
   cat("<br />")
   cat("<br />")
+
+  if (!is.na(label$question_logic)) {
+    cat("<b>")
+    cat(paste(label$question_logic))
+    cat("</b>")
+    cat("<br />")
+    cat("<br />")
+  }
 
   return(gtib)
 
