@@ -35,6 +35,7 @@ tl_labels <- function(data, spss = FALSE) {
     cbind(question_labels)
 
   labels$skip_logic <- NA
+  labels$question_logic <- NA
 
   data_labels <<- labels
   #assign("labels", labels, envir = .GlobalEnv)
