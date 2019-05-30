@@ -1,5 +1,7 @@
 #' tl_readexcel
 #'
+#' Helper function to read excel workbook of trends into list of tibbles reference-able by trend function
+#'
 #' @param filename A reference to an excel workbook
 #' @param tibble Binary parameter to specify type of file. Defaults to list of tibbles, otherwise produces list of dataframes
 #'
