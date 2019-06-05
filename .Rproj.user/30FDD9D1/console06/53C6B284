@@ -1,8 +1,34 @@
-[0m[0KMicrosoft Windows [Version 10.0.16299.431][0K[?25l
+[0mMicrosoft Windows [Version 10.0.16299.431][0K[?25l
 (c) 2017 Microsoft Corporation. All rights reserved.[0K
 [0K
-H:\topliner>[0K[?25hgi[0Kt[0K[17G[?25lH:\topliner>git i[0K[?25hn[0Ki[0Kt[0K[?25l
-[0K[?25h]0;  - git  initInitialized empty Git repository in H:/topliner/.git/[0K[?25l
+H:\topliner>[0K[?25hg[0Ki[0Kt[0K[17G[?25lH:\topliner>git p[0K[?25hu[0Ks[0Kh[0K[22G[?25lH:\topliner>git push -[0K[?25hu[0K[25G[?25lH:\topliner>git push -u i[0K[?25h[?25lH:\topliner>git push -u[0K[25G[?25h[?25lH:\topliner>git push -u o[0K[?25hr[0Ki[0Kgi[0Kn[0K[32G[?25lH:\topliner>git push -u origin m[0K[?25ha[0Ks[0Kt[0Ke[0Kr[0K[?25l
+[0K[?25h]0;  - git  push -u origin master]0; error: src refspec master does not match any[0K[?25l
+[0;31merror: failed to push some refs to 'https://github.com/willdebras/topliner'[0m[0K
+[0K
+H:\topliner>[0K[?25hg[0Ki[0Kt[0K[17G[?25lH:\topliner>git p[0K[?25hu[0Ks[0Kh[0K[22G[?25lH:\topliner>git push -[0K[?25hu[0K[25G[?25lH:\topliner>git push -u o[0K[?25hr[0Ki[0Kg[0Ki[0Kn[0K[32G[?25lH:\topliner>git push -u origin m[0K[?25ha[0Ks[0Kt[0Ke[0Kr[0K[?25l
+[0K[?25h]0;  - git  push -u origin masterEnumerating objects: 26, done.[0K[?25l
+[0K[?25h[?25lCounting objects:   7% (2/26)[0K[1G[?25h[?25lCounting objects:  11% (3/26)[0K[1G[?25h[?25lCounting objects:  19% (5/26)[0K[1G[?25h[?25lCounting objects:  23% (6/26)[0K[1G[?25h[?25lCounting objects:  30% (8/26)[0K[1G[?25h[?25lCounting objects:  34% (9/26)[0K[1G[?25h[?25lCounting objects:  38% (10/26)[0K[1G[?25h[?25lCounting objects:  46% (12/26)[0K[1G[?25h[?25lCounting objects:  50% (13/26)[0K[1G[?25h[?25lCounting objects:  57% (15/26)[0K[1G[?25h[?25lCounting objects:  65% (17/26)[0K[1G[?25h[?25lCounting objects:  69% (18/26)[0K[1G[?25h[?25lCounting objects:  76% (20/26)[0K[1G[?25h[?25lCounting objects:  80% (21/26)[0K[1G[?25h[?25lCounting objects:  88% (23/26)[0K[1G[?25h[?25lCounting objects:  92% (24/26)[0K[1G[?25h[?25lCounting objects:  96% (25/26)[0K[1G[?25hCounting objects: 100% (26/26), done.[0K[?25l
+Delta compression using up to 4 threads[0K
+Compressing objects:  10% (2/19)[0K[1G[?25h[?25lCompressing objects:  15% (3/19)[0K[1G[?25h[?25lCompressing objects:  21% (4/19)[0K[1G[?25h[?25lCompressing objects:  26% (5/19)[0K[1G[?25h[?25lCompressing objects:  31% (6/19)[0K[1G[?25h[?25lCompressing objects:  36% (7/19)[0K[1G[?25h[?25lCompressing objects:  47% (9/19)[0K[1G[?25h[?25lCompressing objects:  52% (10/19)[0K[1G[?25h[?25lCompressing objects:  57% (11/19)[0K[1G[?25h[?25lCompressing objects:  68% (13/19)[0K[1G[?25h[?25lCompressing objects:  73% (14/19)[0K[1G[?25h[?25lCompressing objects:  84% (16/19)[0K[1G[?25h[?25lCompressing objects:  94% (18/19)[0K[1G[?25hCompressing objects: 100% (19/19), done.[0K[?25l
+[0K[?25h[?25lWriting objects:   3% (1/26)[0K[1G[?25h[?25lWriting objects:   7% (2/26)[0K[1G[?25h[?25lWriting objects:  11% (3/26)[0K[1G[?25h[?25lWriting objects:  19% (5/26)[0K[1G[?25h[?25lWriting objects:  23% (6/26)[0K[1G[?25h[?25lWriting objects:  26% (7/26)[0K[1G[?25h[?25lWriting objects:  30% (8/26)[0K[1G[?25h[?25lWriting objects:  34% (9/26)[0K[1G[?25h[?25lWriting objects:  38% (10/26)[0K[1G[?25h[?25lWriting objects:  46% (12/26)[0K[1G[?25h[?25lWriting objects:  50% (13/26)[0K[1G[?25h[?25lWriting objects:  53% (14/26)[0K[1G[?25h[?25lWriting objects:  57% (15/26)[0K[1G[?25h[?25lWriting objects:  69% (18/26)[0K[1G[?25h[?25lWriting objects:  73% (19/26)[0K[1G[?25h[?25lWriting objects:  80% (21/26)[0K[1G[?25h[?25lWriting objects:  84% (22/26)[0K[1G[?25h[?25lWriting objects:  88% (23/26)[0K[1G[?25h[?25lWriting objects:  96% (25/26)[0K[1G[?25hWriting objects: 100% (26/26), 3.23 KiB | 5.00 KiB/s, done.[0K[?25l
+Total 26 (delta 1), reused 0 (delta 0)[0K
+[0K[?25hremote: Resolving deltas: 100% (1/1), done.[0K[?25l
+[0K[?25hTo https://github.com/willdebras/topliner[0K[?25l
+ * [new branch]      master -> master[0K
+[0K[?25hBranch 'master' set up to track remote branch 'master' from 'origin'.[0K[?25l
 [0K[?25h]0; [?25l
-H:\topliner>[0K[?25hg[0Ki[0Kt[0K[17G[?25lH:\topliner>git a[0K[?25hd[0Kd[0K[21G[?25lH:\topliner>git add .[0K[?25h]0;  - git  add .[?25l
-[0K[?25h
+H:\topliner>[0K[?25h[?25l[14A[0;31merror: failed to push some refs to 'https://github.com/willdebras/topliner'[0K
+[0m[0K
+H:\topliner>git push -u origin master[0K
+Enumerating objects: 26, done.[0K
+Counting objects: 100% (26/26), done.[0K
+Delta compression using up to 4 threads[0K
+Compressing objects: 100% (19/19), done.[0K
+Writing objects: 100% (26/26), 3.23 KiB | 5.00 KiB/s, done.[0K
+Total 26 (delta 1), reused 0 (delta 0)[0K
+remote: Resolving deltas: 100% (1/1), done.[0K
+To https://github.com/willdebras/topliner[0K
+ * [new branch]      master -> master[0K
+Branch 'master' set up to track remote branch 'master' from 'origin'.[0K
+[0K
+H:\topliner>[0K[?25h
