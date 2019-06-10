@@ -24,7 +24,7 @@
 
 tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0) {
 
-  tib.list <- lapply(vars, bat, data)
+  tib.list <- lapply(vars, topliner::bat, data)
   tib <- do.call(rbind, tib.list) %>%
     select (battery_labels, everything())
 
