@@ -4,8 +4,8 @@
 \alias{tl_tib}
 \title{tl_tib}
 \usage{
-tl_tib(vari, data = tl_df, default = TRUE, top = 0, bot = 0,
-  na = FALSE, web = FALSE)
+tl_tib(vari, data = tl_df, default = TRUE, res = 3, top = 0,
+  bot = 0, demo = FALSE)
 }
 \arguments{
 \item{vari}{A variable for which you want to produce frequencies}
