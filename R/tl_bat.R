@@ -28,6 +28,8 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   tib <- do.call(rbind, tib.list) %>%
     select (battery_labels, everything())
 
+  tibtest <- tib
+
   if(top>0|bot>0) {
     default = FALSE
   }
@@ -116,7 +118,7 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   if (res==3|res==4) {
 
     tib <- tib %>%
-      mutate(`Skipped/Refused` = .[[ncol(tib)]] + .[[(ncol(tib)-1)]])
+      mutate(`SKP/REF` = .[[ncol(tib)]] + .[[(ncol(tib)-1)]])
 
     tib <- tib %>%
       subset(select = -c((ncol(tib)-2), ncol(tib)-1))
@@ -125,6 +127,7 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
   tib[-1] <- lapply(tib[-1], tl_round)
   colnames(tib) <- ifelse(!str_detect(colnames(tib), "NET"), str_to_sentence(colnames(tib)), colnames(tib))
+  colnames(tib) <- ifelse(str_detect(colnames(tib), "Ski|Ref|ref|Don't know$"), str_to_upper(colnames(tib)), colnames(tib))
   colnames(tib)[1] <- "Percentage"
 
 
@@ -154,6 +157,22 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     cols_align(align = "left",
                columns = c(1)) %>%
     cols_label(Percentage = html(paste(battery_fill)))
+
+  if (default) {
+
+    if ((ncol(tibtest)-res-1)==5) {
+
+      gtib <- gtib %>%
+        tab_style(
+          style = cells_styles(text_weight = "bold"),
+          locations = cells_data(columns = 5)) %>%
+        tab_style(
+          style = cells_styles(text_weight = "bold"),
+          locations = cells_column_labels(columns = 5))
+
+    }
+  }
+
 
   label <- data_labels %>%
     filter(name==vars[1])

@@ -30,6 +30,8 @@
 #'
 tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0, demo = FALSE) {
 
+
+
   label <- data_labels %>%
     filter(name==vari)
 
@@ -38,6 +40,8 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     summarise(perc = survey_mean(na.rm = TRUE)) %>%
     select(vari, perc) %>%
     spread(vari, perc)
+
+  tibtest <- tib
 
 
   if (top > 0 | bot > 0) {
@@ -119,7 +123,7 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
   if (res == 3 | res == 4) {
     tib <- tib %>%
-      mutate(`Skipped/Refused` = .[[ncol(tib)]] + .[[(ncol(tib) - 1)]])
+      mutate(`SKIPPED/REFUSED` = .[[ncol(tib)]] + .[[(ncol(tib) - 1)]])
 
     tib <- tib %>%
       subset(select = -c((ncol(tib) - 2), ncol(tib) - 1))
@@ -140,7 +144,7 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
       str_detect(key, "REF") |
         str_detect(key, "SKIP") |
         str_detect(key, "DON"),
-      str_to_sentence(key),
+      str_to_upper(key),
       key
     ))
 
@@ -171,6 +175,20 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     cols_align(align = "left",
                columns = c(1)) %>%
     cols_label(value = html(paste(battery_fill)))
+
+  if (default) {
+    if ((ncol(tibtest) - res) == 5) {
+
+      gtib <- gtib %>%
+        tab_style(
+          style = cells_styles(text_weight = "bold"),
+          locations = cells_data(rows = 4)
+        )
+
+
+    }
+
+  }
 
   cat("<br />")
   cat("<br />")
