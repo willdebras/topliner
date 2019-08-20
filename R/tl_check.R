@@ -39,6 +39,9 @@ tl_check <- function(vars, data = tl_df)
 
     colnames(tib)[2] <- "Yes"
 
+    tib <- tib %>%
+      select(1, 2)
+
     nsize_temp <- nsize %>%
       filter(rowname == vars[1])
 
