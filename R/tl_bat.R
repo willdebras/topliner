@@ -142,6 +142,7 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
   q_name <- sstr[which.max(nchar(sstr))]
 
+  q_name <- gsub("_", "", q_name)
 
   gtib <- tib %>%
     gt() %>%
