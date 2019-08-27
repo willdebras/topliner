@@ -149,8 +149,8 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     cols_align(align = "center") %>%
     tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
 #    tab_source_note(source_note = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = ""))) %>%
-    tab_footnote(footnote = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = "")),
-                 locations = cells_data(columns = 1, rows = 1)) %>%
+#    tab_footnote(footnote = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = "")),
+#                 locations = cells_data(columns = 1, rows = 1)) %>%
 #    tab_source_note(source_note = "  ") %>%
     tab_style(
       style = list(cell_text(weight = "bold")),
