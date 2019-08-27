@@ -169,7 +169,7 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     tab_source_note(source_note = "  ") %>%
     tab_source_note(source_note = "  ") %>%
     tab_style(
-      style = cells_styles(text_weight = "bold"),
+      style = list(cell_text(weight = "bold")),
       locations = cells_data(rows = tib_loc$row_num)
     ) %>%
     cols_align(align = "left",
@@ -181,7 +181,7 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
       gtib <- gtib %>%
         tab_style(
-          style = cells_styles(text_weight = "bold"),
+          style = list(cell_text(weight = "bold")),
           locations = cells_data(rows = 4)
         )
 
