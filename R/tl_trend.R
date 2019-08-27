@@ -151,10 +151,10 @@ tl_trend <- function(vari, data = tl_df, trends = trend_df, default = TRUE, res 
     gt() %>%
     cols_align(align = "center") %>%
     tab_style(
-      style = cells_styles(text_weight = "bold"),
+      style = list(cell_text(weight = "bold")),
       locations = cells_data(columns = as.vector(tib_loc))) %>%
     tab_style(
-      style = cells_styles(text_weight = "bold"),
+      style = list(cell_text(weight = "bold")),
       locations = cells_column_labels(columns = as.vector(tib_loc))) %>%
     cols_align(align = "left",
                columns = c(1))

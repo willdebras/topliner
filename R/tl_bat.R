@@ -148,16 +148,21 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     gt() %>%
     cols_align(align = "center") %>%
     tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
-    tab_source_note(source_note = "  ") %>%
+#    tab_source_note(source_note = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = ""))) %>%
+    tab_footnote(footnote = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = "")),
+                 locations = cells_data(columns = 1, rows = 1)) %>%
+#    tab_source_note(source_note = "  ") %>%
     tab_style(
-      style = cells_styles(text_weight = "bold"),
+      style = list(cell_text(weight = "bold")),
       locations = cells_data(columns = as.vector(tib_loc))) %>%
     tab_style(
-      style = cells_styles(text_weight = "bold"),
+      style = list(cell_text(weight = "bold")),
       locations = cells_column_labels(columns = as.vector(tib_loc))) %>%
     cols_align(align = "left",
                columns = c(1)) %>%
-    cols_label(Percentage = html(paste(battery_fill)))
+    cols_label(Percentage = html(paste(battery_fill))) %>%
+    tab_options(footnote.marks = as.vector(""))
+
 
   if (default) {
 
@@ -165,10 +170,10 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
       gtib <- gtib %>%
         tab_style(
-          style = cells_styles(text_weight = "bold"),
+          style = list(cell_text(weight = "bold")),
           locations = cells_data(columns = 5)) %>%
         tab_style(
-          style = cells_styles(text_weight = "bold"),
+          style = list(cell_text(weight = "bold")),
           locations = cells_column_labels(columns = 5))
 
     }

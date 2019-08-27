@@ -51,6 +51,8 @@ tl_check <- function(vars, data = tl_df)
 
     q_name <- sstr[which.max(nchar(sstr))]
 
+    q_name <- gsub("_", "", q_name)
+
     gtib <- tib %>%
       gt() %>%
       cols_align(align = "center") %>%
