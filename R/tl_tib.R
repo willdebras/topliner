@@ -100,7 +100,7 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   else if (top > 0) {
     tib <- tib %>%
       mutate(`Top NET` = apply(tib[, c(1:top)], 1, sum)) %>%
-      select(1, `Top NET`, everything())
+      select(`Top NET`, everything())
 
   }
 
