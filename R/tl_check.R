@@ -57,7 +57,7 @@ tl_check <- function(vars, data = tl_df)
       gt() %>%
       cols_align(align = "center") %>%
       tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
-      tab_source_note(source_note = "  ") %>%
+#      tab_source_note(source_note = "  ") %>%
       cols_align(align = "left",
                  columns = c(1)) %>%
       cols_label(col1 = html(paste(battery_fill)))

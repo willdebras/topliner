@@ -166,8 +166,8 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     tab_source_note(source_note = html(paste(
       "<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""
     ))) %>%
-    tab_source_note(source_note = "  ") %>%
-    tab_source_note(source_note = "  ") %>%
+#    tab_source_note(source_note = "  ") %>%
+#    tab_source_note(source_note = "  ") %>%
     tab_style(
       style = list(cell_text(weight = "bold")),
       locations = cells_data(rows = tib_loc$row_num)
