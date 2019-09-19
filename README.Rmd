@@ -1,0 +1,247 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+## Introduction
+
+Topliner is an R package designed to help produce topline findings documents automatically from datasets read into R, sidestepping the potential error of copy and pasting or filling numbers into word tables from output frequencies. It both promotes transparency by giving a code-based source for associated tables, reduces error, and saves a tremendous amount of time by eliminating the need to produce tables in Microsoft Word, fill them, and number check them.
+
+The package can be used by running simple commands to output a table.
+
+## How to use it
+
+
+### Installation
+
+If we don't already have the package installed, we will want to install it from NORC's internal bitbucket. We will need to use the `install_bitbucket` command.
+
+First install devtools if you don't have it and load it, then install the topliner package. It will have several dependencies that will need to be installed. You can interact with the console to install these when it prompts you.
+
+```{r dev, eval = FALSE}
+
+install.packages("devtools")
+
+library(devtools)
+
+install_bitbucket("bonnell-william/topliner")
+
+```
+
+Next let's load the packages we will need. We will need {topliner} to create the tables and haven to load our data. Install {haven} if you don't already have it, otherwise load it. I also load {knitr} to include images, such as a document header specific to our department. 
+
+
+```{r stuff, message = FALSE, warning = FALSE, echo = TRUE}
+library(topliner)
+library(haven)
+library(knitr)
+```
+
+### Reading data and setup
+  
+Next, we load in our data with the `haven::read_dta` command. We read either as a .sav or .dta file extension because {haven} will preserve the formats and question text associated with the dataset. If you use a sas dataset, we recommend exporting to a .dta in sas and then reading it in with this code.
+
+```{r data, echo = TRUE}
+data2 <- read_dta("P:\\AP-NORC Center\\Common\\AP Special Projects\\Omnibus\\05.2019\\Data\\old\\May_completes_clean.dta")
+```
+
+After we read in the data, convert the columns to factors so {topliner} recognizes that each variable should have levels. Then we can run the setup command. The setup command takes a data argument, a caseids argument, a weights argument, and a dates argument. 
+
+Supply the data argument below as the dataframe object you read in. 
+Supply the caseids argument as the column of your dataframe that represents the caseid.
+Supply the weights argument as the column of your dataframe that represents the sample weights of the survey. 
+Supply the dates as the field dates for which the survey was fielded.
+
+For non-sample weighted surveys, create a new variable with a value of 1 for every observation and use that variable as the weights argument. 
+
+Make sure to supply the caseids, weights, and dates arguments as strings, as they are not objects the function can detect. If used outside of APNORC, set APNORC = FALSE.
+
+```{r setup3}
+
+data2 <- as_factor(data2)
+
+tl_setup(data = data2, caseids = "caseid", weights = "weight_enes", dates = "05/17-20/2019", APNORC = TRUE)
+```
+
+This setup function will superassign to the global environment three objects to be referenced by our functions:
+
+* a dataframe called `nsize` with the nsizes of each column
+* a survey object called `tl_df` for reference by our functions
+* a string called `battery_fill` to include in the header of functions
+
+### Labels, formats, logic
+
+To produce the question text, grid battery item text, skip logic, and question logic in a topline we want to run the `tl_labels` function on the dataset we initially provided.  
+
+```{r gen, echo = TRUE, warning = FALSE, eval = FALSE}
+tl_labels(data2)
+```
+
+We run this function and it produces a temporary excel file that looks like this:
+
+
+```{r labelphoto, echo = FALSE}
+knitr::include_graphics("H:\\New fldr\\labels_example.png") 
+```
+
+
+If the question labels produced in SAS/Stata/SPSS have been truncated, we will want to fill them in in this excel sheet. 
+
+For standard, non-battery/grid questions, we edit the "label" column to be complete. For battery/grid questions, this function splits the string of the battery item contained in brackets [] from the question text. We edit the "battery_labels" column to be the battery item and we edit the "question_label" of the first item in the battery to the associated question text. 
+
+E.g., in this screenshot we have a battery from qp3a to sp3i. We want the column question_labels in the row of sp3a to be the full question text of the battery. This will be referenced in the battery function. 
+
+We can then edit the "skip_logic" column to show up in italics before the question text and the "question_logic" to show up in bold after the question text. 
+
+Once done we will want to save this somewhere and load it in as a csv, assigned to the object name "data_labels." Our functions will reference the object "data_labels" by default. 
+
+```{r labels, message = FALSE, warning = FALSE, echo = FALSE, eval = TRUE}
+
+#read back in the data labels after editing
+data_labels <- read.csv("C:/Users/Bonnell-William/Documents/data_labels2.csv")
+
+```
+
+
+### Trend data
+
+If we have historical trend data, we load in a an excel sheet with tables we want to match to new data. This should be a workbook that has the appropriate netting, column names, and row names, where each sheet name is that of the question referenced in our new dataset.. It should look something like this:
+
+
+```{r trendphoto, echo = FALSE}
+knitr::include_graphics("H:\\New fldr\\trendbook.png") 
+```
+
+Load it in and assign it to a name that we will reference in the trend function. 
+
+```{r trends}
+
+mysheets <- tl_readexcel("H:\\New fldr\\trend_book.xlsx")
+
+```
+
+
+### The functions
+
+#### Trends
+
+We can test the trend function now with the question "cur1" seen in the sheet above: 
+
+Run `tl_trend` supplying the name of the workbook assigned above:
+
+<font size="4"> 
+```{r trendtest, echo = TRUE, results = "asis"}
+tl_trend("cur1", trends = mysheets)
+```
+</font>
+
+#### Standard questions
+
+For ordinary questions we can use the `tl_tib` function. It takes several arguments that default based on the setup above. We can just supply the `vari` argument as the column name we want to produce a table for. 
+
+<font size="4"> 
+```{r stan, results = "asis"}
+tl_tib(vari = "sp5")
+```
+</font>
+
+If you notice, this function will default to do two things:
+ 
+* net the top and bottom columns if there are four, five, or seven levels in your categorical variable. 
+* net the bottom two columns of "skipped on web" and "refused" into a single column 
+
+These defaults can be changed. Here we tell it to not default anything.
+
+<font size="4"> 
+```{r stan2, results = "asis"}
+tl_tib(vari = "sp5", default = FALSE)
+```
+</font>
+
+Here we tell it to custom net just the bottom two levels.
+
+<font size="4"> 
+```{r stan3, results = "asis"}
+tl_tib(vari = "sp5", bot = 2)
+```
+</font>
+
+Here wee tell it to custom net the top three and bottom two.
+
+<font size="4"> 
+```{r stan4, results = "asis"}
+tl_tib(vari = "sp5", top =3, bot = 2)
+```
+</font>
+
+The function has a default parameter `res = 3` that tells the function to expect three "residual" columns:
+
+* don't know
+* skipped on web
+* refused
+
+If we specify res = 0, in the case of a demo variable with no missings, or less than 3 in a case where we have a web-only survey with no active "don't know" or "refused" column it will not combine the bottom two variables.
+
+Here we supply it a seven level variable that we do not want netted and has no residual columns since it is a demographic:
+
+<font size="4"> 
+```{r stan5, results = "asis"}
+tl_tib("age7", default = FALSE, res = 0)
+```
+</font>
+
+These net and residual arguments will work for standard questions, batteries, and trends. 
+
+#### Battery questions
+
+Battery questions work in a similar manner except we supply a vector of questions as the "vars" argument. Here is an example. You'll notice it has custom question logic piped in from the data_labels excel sheet we gave it earlier.
+
+<font size="4"> 
+```{r stan6, results = "asis"}
+tl_bat(vars = c("sp7a", "sp7b", "sp7c"))
+```
+</font>
+
+These will have default nets.
+
+<font size="4"> 
+```{r stan7, results = "asis"}
+tl_bat(vars = c("rel3a", "rel3b", "rel3c", "rel3d", "rel3e", "rel3f", "rel3g"))
+```
+</font>
+
+We can supply it custom nets.
+
+<font size="4"> 
+```{r stan8, results = "asis", fig.width = 10}
+tl_bat(vars = c("sp3a", "sp3b", "sp3c", "sp3d", "sp3e", "sp3f", "sp3g", "sp3h", "sp3i"), top =2, bot = 3)
+```
+</font>
+
+## Tips and tricks
+
+### R Markdown
+
+The shell provided in the bitbucket is a good place to start with creating a publishable topline document. It includes the rmd parameters that you will need:
+
+* Code chunks should generally be given the option `echo = FALSE` if you wish for them to not show up.
+* Code chunks should be given the option `results = "asis"` to ensure the HTML in the functions, i.e. italics, bolds, and line breaks show up in a readable way. 
+* The best font size is 3 or 4. We use rmd inline code to tell it this in the shell. 
+*Cover pages and methodology can be included in multiple ways. They can be included as images as shown in our example or they can be included just by typing or pasting into here with different rmd options related to font, hyperlinks, etc. We are more than welcome to meet to set up some shells for different departments to use.
+
+### Output options
+
+Right now this package can only output to HTML, which can be easily converted to PDF. We're currently working on different solutions to get it to properly output to a LaTeX PDF or MS Word version. 
+
+The topliner bitbucket can be found [here](http://bitbucket.norc.org:7990/projects/TOP).
+The InSite folder with reference documents, the tutorial, and our presentation slides can be found [here](https://insite2.norc.org/projects/VentureFund/Shared%20Documents/00_All%20Access/2019%20Final%20Deliverables/Round%201/Automated%20Toplines)
