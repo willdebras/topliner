@@ -9,22 +9,6 @@
 #' @import data.table
 #' @import survey
 #'
-bat <- function(var, data) {
-
-  labels_temp <- data_labels %>%
-    filter(name == var) %>%
-    select(battery_labels)
-
-  tib_temp <- data %>%
-    group_by_at(var) %>%
-    summarise(perc = survey_mean(na.rm = TRUE)) %>%
-    select(c(1, 2)) %>%
-    spread(var, perc)
-
-  tib <- cbind(tib_temp, labels_temp)
-
-}
-
 grid_battery <- function(var, svy_dt) {
 
   formula <- paste0("~", "var")
