@@ -5,18 +5,19 @@ data2 <- haven::read_dta("P:\\AP-NORC Center\\Common\\AP Special Projects\\Omnib
 library(magrittr)
 library(survey)
 library(srvyr)
+library(data.table)
 
 data2 <- as_factor(data2)
 
 topliner::tl_setup(data = data2, caseids = "caseid", weights = "weight_enes", dates = "05/17-20/2019")
 
-tib <- as.data.frame(svytable(~rel3d, tl_df, Ntotal = 100))
-att <- as.data.frame(as.factor(attributes(data2$rel3d)$labels)) %>%
-  `colnames<-`("rel3d")
+tib <- as.data.table(svytable(~rel3d, tl_df, Ntotal = 100))
+att <- as.data.table(as.factor(attributes(data2$rel3d)$labels), keep.rownames = TRUE) %>%
+  `colnames<-`(c("label", "rel3d"))
 
 att$labels <- rownames(att)
 
 tib_2 <- right_join(tib, att)
 
-tib_2$Freq[is.na(tib_2$Freq)] <- 0
+tib_2$N[is.na(tib_2$N)] <- 0
 
