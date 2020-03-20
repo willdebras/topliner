@@ -11,9 +11,9 @@
 #'
 grid_check <- function(var, svy_dt) {
 
-  formula <- paste0("~", "var")
-  survey_output <- as.data.table(svytable(formula = formula, svy_dt, Ntotal = 100))
-  survey_output <- survey_output[, data.table(t(.SD), keep.rownames = TRUE)]
+  formula <- as.formula(paste0("~", var))
+  survey_output <- data.table::as.data.table(survey::svytable(formula = formula, svy_dt, Ntotal = 100))
+  survey_output <- survey_output[, data.table::data.table(t(.SD), keep.rownames = TRUE)]
 
   return(survey_output)
 
