@@ -27,10 +27,10 @@ bat <- function(var, data) {
 
 grid_battery <- function(var, svy_dt) {
 
-  survey_output <- as.data.table(svytable(~var, svy_dt, Ntotal = 100))
+  formula <- paste0("~", "var")
+  survey_output <- as.data.table(svytable(formula = formula, svy_dt, Ntotal = 100))
   survey_output <- survey_output[, data.table(t(.SD), keep.rownames = TRUE)]
 
   return(survey_output)
 
 }
-
