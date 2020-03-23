@@ -9,12 +9,12 @@
 #' @import data.table
 #' @import survey
 #'
-grid_battery <- function(var, svy_dt) {
+grid_battery <- function(var, data) {
 
   formula <- as.formula(paste0("~", var))
-  survey_output <- data.table::as.data.table(survey::svytable(formula = formula, svy_dt, Ntotal = 100))
-  survey_output <- survey_output[, data.table::data.table(t(.SD), keep.rownames = TRUE)]
+  tib_temp <- data.table::as.data.table(survey::svytable(formula = formula, data, Ntotal = 100))
+  tib_temp <- tib_temp[, data.table::data.table(t(.SD), keep.rownames = TRUE)]
 
-  return(survey_output)
+  return(tib_temp)
 
 }
