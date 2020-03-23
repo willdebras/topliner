@@ -35,13 +35,20 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   label <- data_labels %>%
     filter(name==vari)
 
-  tib <- data %>%
-    group_by_at(vari) %>%
-    summarise(perc = survey_mean(na.rm = TRUE)) %>%
-    select(vari, perc) %>%
-    spread(vari, perc)
+  var_form <- as.formula(paste0("~", vari))
+
+  tib <- as.data.table(svytable(var_form, data, Ntotal = 100)) %>%
+    `colnames<-`(c(vari, "perc"))
+
+  tib <- tib[, data.table::data.table(t(.SD))]
+  colnames(tib) <- as.character(unlist(tib[1,]))
+  tib <- as.data.table(sapply(tib, as.numeric))
+  tib <- tib[-1,]
+
 
   tibtest <- tib
+
+  return(tibtest)
 
 
   if (top > 0 | bot > 0) {
@@ -134,6 +141,8 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   tib <- tib %>%
     gather() %>%
     select(key, value)
+
+  return(tib)
 
 
   tib[-1] <- lapply(tib[-1], tl_round)
