@@ -45,8 +45,14 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
 
 }
 
-tib_att <- tl_tib("rel3d")
+tl_tib("rel3d", top = 3, bot = 2)
+
+top <- 3
 
 tib_att <- tib_att %>%
-  mutate(`Top NET` = apply(tib_att[, c(1:3)], 1, sum)) %>%
+  mutate(`Top NET` = apply(tib_att[, c(1:top)], 1, sum)) %>%
   select(`Top NET`, everything())
+
+tib_att <- tib_att %>%
+  gather() %>%
+  select(key, value)
