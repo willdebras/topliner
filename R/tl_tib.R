@@ -143,7 +143,6 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     gather() %>%
     select(key, value)
 
-  return(tib)
 
 
   tib[-1] <- lapply(tib[-1], tl_round)
