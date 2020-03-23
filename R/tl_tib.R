@@ -45,6 +45,7 @@ tl_tib <- function(vari, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
   tib <- as.data.table(sapply(tib, as.numeric))
   tib <- tib[-1,]
 
+  tibtest <- tib
 
   tib <- data.table::setDF(tib)
 
