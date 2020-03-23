@@ -14,7 +14,7 @@
 #'
 #'
 tl_round <- function(x){
-  ifelse(x >= 0.5, round(100*x, digits = 0),
+  ifelse(x >= 0.5, round(x, digits = 0),
          ifelse(x == 0, "-",
                 ifelse((x > 0 & x < 0.5), "*", NA)))
 }
