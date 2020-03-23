@@ -1,6 +1,7 @@
 ### new topliner scratch
 
 data2 <- haven::read_dta("P:\\AP-NORC Center\\Common\\AP Special Projects\\Omnibus\\2019\\05.2019\\Data\\old\\May_completes_clean.dta")
+data2 <- haven::read_dta("P:\\NPPC\\Common\\AmeriSpeak\\ClientServices\\Projects\\NORC\\AP-NORC\\6789.71 Young People Survey\\AP-NORC\\Data\\Young People Survey - completes_clean.dta")
 
 library(magrittr)
 library(survey)
@@ -11,6 +12,7 @@ library(haven)
 data2 <- as_factor(data2)
 
 topliner::tl_setup(data = data2, caseids = "caseid", weights = "weight_enes", dates = "05/17-20/2019")
+topliner::tl_setup(data = data2, caseids = "caseid", weights = "weight_tn", dates = "05/17-20/2019")
 
 var_form <- as.formula(paste0("~", vari))
 
@@ -62,3 +64,8 @@ grid_battery("rel3d", data = tl_df)
 
 tl_bat(c("rel3a", "rel3b", "rel3c", "rel3d"))
 
+tl_labels(data2)
+
+tl_tib("e8g")
+tl_bat(c("rel3a", "rel3b", "rel3c", "rel3d"))
+tl_check(c("e9_1", "e9_2", "e9_3"))

@@ -31,6 +31,8 @@ tl_check <- function(vars, data = tl_df)
     tib <- do.call(rbind, tib_list) %>%
       select(battery_labels, everything())
 
+    tib <- data.table::setDF(tib)
+
     tib[-1] <- lapply(tib[,-1], tl_round)
 
     tib <- tib[-c(2)]

@@ -11,15 +11,20 @@
 #'
 grid_check <- function(var, data) {
 
+  label_temp <- data_labels %>%
+    filter(name == var) %>%
+    select(battery_labels)
+
   formula <- as.formula(paste0("~", var))
-  survey_output <- data.table::as.data.table(survey::svytable(formula = formula, svy_dt, Ntotal = 100))
-  survey_output <- survey_output[, data.table::data.table(t(.SD), keep.rownames = TRUE)]
+  tib_temp <- data.table::as.data.table(survey::svytable(formula = formula, data, Ntotal = 100))
+  tib_temp <- tib_temp[, data.table::data.table(t(.SD), keep.rownames = TRUE)]
 
   colnames(tib_temp) <- as.character(unlist(tib_temp[1,]))
   tib_temp <- as.data.table(sapply(tib_temp, as.numeric))
   tib_temp <- tib_temp[-1,-1]
 
+  tib <- cbind(tib_temp, label_temp)
 
-  return(survey_output)
+  return(tib)
 
 }
