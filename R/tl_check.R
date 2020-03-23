@@ -26,7 +26,7 @@ tl_check <- function(vars, data = tl_df)
 
   {
 
-    tib_list <- lapply(vars, topliner::check, data)
+    tib_list <- lapply(vars, grid_check, data)
 
     tib <- do.call(rbind, tib_list) %>%
       select(battery_labels, everything())
