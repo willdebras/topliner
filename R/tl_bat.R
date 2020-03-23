@@ -24,15 +24,18 @@
 
 tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0) {
 
-  tib.list <- lapply(vars, topliner::bat, data)
+  tib.list <- lapply(vars, grid_battery, data)
   tib <- do.call(rbind, tib.list) %>%
     select (battery_labels, everything())
+
+  tib <- data.table::setDF(tib)
 
   tibtest <- tib
 
   if(top>0|bot>0) {
     default = FALSE
   }
+
 
 
   if (default) {
@@ -148,10 +151,10 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     gt() %>%
     cols_align(align = "center") %>%
     tab_source_note(source_note = html(paste("<i>", "N = ", nsize_temp$ncount, "<i/>", sep = ""))) %>%
-#    tab_source_note(source_note = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = ""))) %>%
-#    tab_footnote(footnote = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = "")),
-#                 locations = cells_data(columns = 1, rows = 1)) %>%
-#    tab_source_note(source_note = "  ") %>%
+    #    tab_source_note(source_note = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = ""))) %>%
+    #    tab_footnote(footnote = md(paste("*", "N = ", nsize_temp$ncount, "*", sep = "")),
+    #                 locations = cells_data(columns = 1, rows = 1)) %>%
+    #    tab_source_note(source_note = "  ") %>%
     tab_style(
       style = list(cell_text(weight = "bold")),
       locations = cells_data(columns = as.vector(tib_loc))) %>%
@@ -207,6 +210,8 @@ tl_bat <- function(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0
     cat("<br />")
     cat("<br />")
   }
+
+
 
   return(gtib)
 
