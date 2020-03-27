@@ -14,6 +14,10 @@ data2 <- as_factor(data2)
 topliner::tl_setup(data = data2, caseids = "caseid", weights = "weight_enes", dates = "05/17-20/2019")
 topliner::tl_setup(data = data2, caseids = "caseid", weights = "weight_tn", dates = "05/17-20/2019")
 
+freqs <- as.data.frame(survey::svytable(~rel3d+age4, tl_df))
+
+check <- as.data.frame(tapply(freqs$Freq, list(freqs$rel3d, freqs$age4), mean))
+
 var_form <- as.formula(paste0("~", vari))
 
 tib <- as.data.table(svytable(var_form, data, Ntotal = 100))
