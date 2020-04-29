@@ -21,6 +21,7 @@
 #' @import gt
 #' @import tidyr
 #' @importFrom stringr str_detect str_to_sentence str_to_upper
+#' @import data.table
 #'
 #' @export
 #'

@@ -18,6 +18,6 @@ A list of tibbles or dataframes to for reference by trend data
 Helper function to read excel workbook of trends into list of tibbles reference-able by trend function
 }
 \examples{
-trends <- tl_readexcel("C:\\\\documents\\\\file.xlsx")
+trends <- tl_readexcel("C:\\documents\\file.xlsx")
 
 }

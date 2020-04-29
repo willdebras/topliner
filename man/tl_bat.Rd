@@ -4,8 +4,7 @@
 \alias{tl_bat}
 \title{tl_bat}
 \usage{
-tl_bat(vars, data = tl_df, default = TRUE, res = 3, top = 0,
-  bot = 0)
+tl_bat(vars, data = tl_df, default = TRUE, res = 3, top = 0, bot = 0)
 }
 \arguments{
 \item{vars}{Vector of variables from survey data object}

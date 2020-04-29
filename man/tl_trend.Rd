@@ -4,8 +4,15 @@
 \alias{tl_trend}
 \title{tl_trend}
 \usage{
-tl_trend(vari, data = tl_df, trends = trend_df, default = TRUE,
-  res = 3, top = 0, bot = 0)
+tl_trend(
+  vari,
+  data = tl_df,
+  trends = trend_df,
+  default = TRUE,
+  res = 3,
+  top = 0,
+  bot = 0
+)
 }
 \arguments{
 \item{vari}{A variable for which you want to produce trend frequencies}

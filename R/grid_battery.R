@@ -8,6 +8,7 @@
 #'
 #' @import data.table
 #' @import survey
+#' @importFrom dplyr filter select
 #'
 grid_battery <- function(var, data) {
 
